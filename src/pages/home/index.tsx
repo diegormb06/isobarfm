@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      <Header searchField />
       <BandListContainer>
         {bandList?.map((band:Band) => <BandListItem key={band.id} band={band}/>)}
       </BandListContainer>
