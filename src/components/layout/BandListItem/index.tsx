@@ -19,18 +19,19 @@ const BandListItem = () => {
 const BandListItemWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 15px;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.35);
 `;
 
 const BandInfo = styled.div`
   padding: 10px;
-  
 `;
 
 const BandName = styled.h3`
   margin: 0;
   text-transform: uppercase;
+  font-weight: 400;
   color: #646464
+  
 `;
 
 const BandPlays = styled.p`
