@@ -17,12 +17,13 @@ const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 15px;
+  padding: 15px;
 `
 
 const Logo = styled.img`
-  width: 110px;
-  margin-left: 15px;
+  width: 90px;
+  height: auto;
+  margin-left: 20px;
 `;
 
 export default Header;

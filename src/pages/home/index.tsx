@@ -17,7 +17,7 @@ const Home = () => {
     <div>
       <Header />
       <BandListContainer>
-        {bandList?.map((band:Band) => <BandListItem/>)}
+        {bandList?.map((band:Band) => <BandListItem key={band.id} band={band}/>)}
       </BandListContainer>
     </div>
   );

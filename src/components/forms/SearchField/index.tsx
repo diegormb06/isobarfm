@@ -22,7 +22,7 @@ const Input = styled.input`
   padding-right: 50px;
   height: 30px;
   border: none;
-  border-radius: 3px;
+  border-radius: 2px;
 `;
 
 const InputIcon = styled.img`

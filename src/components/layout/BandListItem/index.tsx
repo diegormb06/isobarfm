@@ -1,18 +1,26 @@
 import Avatar from "../../datadisplay/avatar";
 import styled from "styled-components/macro";
+import {Band} from "../../../isobar";
+import { Link } from "react-router-dom";
 
-const BandListItem = () => {
+interface BandListItemProps {
+  band: Band;
+}
+
+const BandListItem = ({band}:BandListItemProps) => {
   return (
-    <BandListItemWrapper>
-      <Avatar
-        source="https://lastfm.freetls.fastly.net/i/u/300x300/261324c8d05d42babb0cbdef8c204494.png"
-        size="small"
-      />
-      <BandInfo>
-        <BandName>3 Doors Down</BandName>
-        <BandPlays>4471468 plays</BandPlays>
-      </BandInfo>
-    </BandListItemWrapper>
+    <Link to={`band/${band.id}`} >
+      <BandListItemWrapper>
+        <Avatar
+          source={band.image}
+          size="small"
+        />
+        <BandInfo>
+          <BandName>{band.name}</BandName>
+          <BandPlays>{band.numPlays} plays</BandPlays>
+        </BandInfo>
+      </BandListItemWrapper>
+    </Link>
   )
 }
 
@@ -20,6 +28,11 @@ const BandListItemWrapper = styled.div`
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(221, 221, 221, 0.35);
+  transition: all 200ms ease;
+
+  &:hover, &:active {
+    background-color: #f5f5f5;
+  }
 `;
 
 const BandInfo = styled.div`
@@ -31,7 +44,6 @@ const BandName = styled.h3`
   text-transform: uppercase;
   font-weight: 400;
   color: #646464
-  
 `;
 
 const BandPlays = styled.p`
