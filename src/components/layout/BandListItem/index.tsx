@@ -1,28 +1,25 @@
 import Avatar from "../../datadisplay/avatar";
 import styled from "styled-components/macro";
-import {Band} from "../../../isobar";
-import { Link } from "react-router-dom";
+import { Band } from "../../../isobar";
+import { useNavigate } from "react-router-dom";
 
 interface BandListItemProps {
   band: Band;
 }
 
-const BandListItem = ({band}:BandListItemProps) => {
+const BandListItem = ({ band }: BandListItemProps) => {
+  const navigation = useNavigate();
+
   return (
-    <Link to={`band/${band.id}`} >
-      <BandListItemWrapper>
-        <Avatar
-          source={band.image}
-          size="small"
-        />
-        <BandInfo>
-          <BandName>{band.name}</BandName>
-          <BandPlays>{band.numPlays} plays</BandPlays>
-        </BandInfo>
-      </BandListItemWrapper>
-    </Link>
-  )
-}
+    <BandListItemWrapper onClick={() => navigation(`band/${band.id}`)}>
+      <Avatar source={band.image} size="small" />
+      <BandInfo>
+        <BandName>{band.name}</BandName>
+        <BandPlays>{band.numPlays} plays</BandPlays>
+      </BandInfo>
+    </BandListItemWrapper>
+  );
+};
 
 const BandListItemWrapper = styled.div`
   display: flex;
@@ -30,7 +27,8 @@ const BandListItemWrapper = styled.div`
   border-bottom: 1px solid rgba(221, 221, 221, 0.35);
   transition: all 200ms ease;
 
-  &:hover, &:active {
+  &:hover,
+  &:active {
     background-color: #f5f5f5;
   }
 `;
@@ -43,7 +41,7 @@ const BandName = styled.h3`
   margin: 0;
   text-transform: uppercase;
   font-weight: 400;
-  color: #646464
+  color: #646464;
 `;
 
 const BandPlays = styled.p`
@@ -52,4 +50,4 @@ const BandPlays = styled.p`
   text-transform: uppercase;
 `;
 
-export default BandListItem
+export default BandListItem;

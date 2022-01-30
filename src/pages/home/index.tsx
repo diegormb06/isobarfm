@@ -2,26 +2,34 @@ import Header from "../../components/layout/header";
 import BandListItem from "../../components/layout/BandListItem";
 import styled from "styled-components/macro";
 import useBandService from "../../services/useBandService";
-import {useEffect, useState} from "react";
-import {Band} from "../../isobar";
+import { useEffect } from "react";
+import { Band } from "../../isobar";
+import { useBandsContext } from "../../context/bandsContext";
 
 const Home = () => {
-  const {getBands, bandFetchLoading} = useBandService()
-  const [bandList, setBandList] = useState<Band[] | null>(null)
+  const { bands } = useBandsContext();
+  const { getBands, bandsFetchLoading } = useBandService();
 
   useEffect(() => {
-    getBands().then((bandData) => setBandList(bandData));
-  }, [getBands])
+    if (bands.length < 1) getBands();
+  }, []);
 
   return (
     <div>
+      {console.log(bands.length)}
       <Header searchField />
-      <BandListContainer>
-        {bandList?.map((band:Band) => <BandListItem key={band.id} band={band}/>)}
-      </BandListContainer>
+      {bandsFetchLoading ? (
+        <p>Carregando</p>
+      ) : (
+        <BandListContainer>
+          {bands?.map((band: Band) => (
+            <BandListItem key={band.id} band={band} />
+          ))}
+        </BandListContainer>
+      )}
     </div>
   );
-}
+};
 
 const BandListContainer = styled.main`
   padding: 15px 30px;

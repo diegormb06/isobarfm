@@ -1,30 +1,39 @@
-import {useState} from "react";
 import api from "./api";
-import {Band} from "../isobar";
+import { useState } from "react";
+import { Band } from "../isobar";
+import { useBandsContext } from "../context/bandsContext";
+import { AxiosResponse } from "axios";
 
 const useBandsService = () => {
   const [bandsFetchLoading, setBandsFetchLoading] = useState(false);
+  const { setBands } = useBandsContext();
 
-  const getBands = async (): Promise<Band[] | null> => {
-    try {
-      setBandsFetchLoading(true);
-      const bands = await api.get('/bands');
-      return bands.data
-    } catch (e: any) {
-      console.log(e.message)
-      return null;
-    }
-  }
+  const getBands = (): void => {
+    setBandsFetchLoading(true);
+    api
+      .get("/bands")
+      .then((bands: AxiosResponse<Band[]>) => {
+        setBandsFetchLoading(false);
+        setBands(bands.data);
+        return;
+      })
+      .catch((e) => {
+        console.log(e.message);
+        setBandsFetchLoading(false);
+        return;
+      });
+  };
 
-  const getBandsById = () => {
+  const getBandsById = () => {};
 
-  }
+  const getAlbums = () => {};
 
-  const getAlbums = () => {
-
-  }
-
-  return {bandFetchLoading: bandsFetchLoading, getBands, getBandsById, getAlbums}
-}
+  return {
+    bandsFetchLoading,
+    getBands,
+    getBandsById,
+    getAlbums,
+  };
+};
 
 export default useBandsService;

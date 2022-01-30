@@ -1,7 +1,8 @@
 import Home from "./pages/home";
-import {createGlobalStyle} from "styled-components";
-import {Route, Routes } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
+import { Route, Routes } from "react-router-dom";
 import BandDetails from "./pages/BandDetails";
+import { BandsProvider } from "./context/bandsContext";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -13,13 +14,13 @@ const GlobalStyles = createGlobalStyle`
 
 function App() {
   return (
-    <>
+    <BandsProvider>
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="band/:id" element={<BandDetails />} />
       </Routes>
-    </>
+    </BandsProvider>
   );
 }
 
