@@ -6,6 +6,7 @@ import { Band } from "../../isobar";
 import { useParams } from "react-router-dom";
 import useBandService from "../../services/useBandService";
 import Avatar from "../../components/datadisplay/avatar";
+import LoadingDisk from "../../components/feedback/LoadingDisk";
 
 const BandDetails = () => {
   const { getBands } = useBandService();
@@ -14,6 +15,7 @@ const BandDetails = () => {
   const [activeBand, setActiveBand] = useState<Band | null>(null);
   const { getAlbums } = useBandService();
   const [albums, setAlbums] = useState([]);
+  const [openReadMore, setOpenReadMore] = useState(false);
 
   useEffect(() => {
     if (bands.length < 1) getBands();
@@ -46,12 +48,23 @@ const BandDetails = () => {
           </BandStatsText>
         </BandStatus>
       </BandIntro>
-      <p>{activeBand?.biography}</p>
-      <GridOfAlbums>
-        {albums.map((album: any) => (
-          <img src={album?.image} alt="" />
-        ))}
-      </GridOfAlbums>
+      <BandBiografy open={openReadMore}>
+        {activeBand?.biography}
+        <BandBiografyReadMore
+          open={openReadMore}
+          onClick={() => setOpenReadMore(!openReadMore)}
+        />
+      </BandBiografy>
+      <SectionTitle>Albums</SectionTitle>
+      {albums.length === 0 ? (
+        <LoadingDisk />
+      ) : (
+        <GridOfAlbums>
+          {albums.map((album: any) => (
+            <img src={album?.image} alt="" />
+          ))}
+        </GridOfAlbums>
+      )}
     </div>
   );
 };
@@ -88,6 +101,62 @@ const BandStatsText = styled.p<{ align: string }>`
   font-weight: 500;
   position: relative;
   top: 13px;
+`;
+
+const BandBiografy = styled.div<{ open: boolean }>`
+  position: relative;
+  padding: 15px;
+  height: ${({ open }) => (open ? "auto" : "130px")};
+  overflow: hidden;
+  margin-bottom: 15px;
+  text-align: justify;
+  transition: all 300ms ease-out;
+`;
+
+const BandBiografyReadMore = styled.div<{ open: boolean }>`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+  background-color: white;
+  height: 50px;
+  width: 100%;
+  max-width: 100vw;
+  box-shadow: 0 -33px 30px #fff;
+  cursor: pointer;
+  display: ${({ open }) => (open ? "none" : "block")};
+
+  &:before {
+    content: "";
+    display: block;
+    position: relative;
+    top: 50%;
+    height: 1px;
+    width: 100%;
+    background-color: #eee;
+  }
+
+  &:after {
+    content: "+";
+    color: #6c6c6c;
+    text-align: center;
+    font-size: 2rem;
+    display: block;
+    position: relative;
+    top: 0;
+    left: calc(50vw - 20px);
+    height: 40px;
+    width: 40px;
+    background-color: #fff;
+  }
+`;
+
+const SectionTitle = styled.h3`
+  color: #6c6c6c;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: normal;
 `;
 
 const GridOfAlbums = styled.div`

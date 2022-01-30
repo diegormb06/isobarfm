@@ -26,6 +26,7 @@ const BandListItemWrapper = styled.div`
   align-items: center;
   border-bottom: 1px solid rgba(221, 221, 221, 0.35);
   transition: all 200ms ease;
+  cursor: pointer;
 
   &:hover,
   &:active {
