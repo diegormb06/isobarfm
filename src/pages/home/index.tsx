@@ -8,7 +8,7 @@ import { useBandsContext } from "../../context/bandsContext";
 
 const Home = () => {
   const { bands } = useBandsContext();
-  const { getBands, bandsFetchLoading } = useBandService();
+  const { getBands, getAlbums, bandsFetchLoading } = useBandService();
 
   useEffect(() => {
     if (bands.length < 1) getBands();
@@ -16,7 +16,6 @@ const Home = () => {
 
   return (
     <div>
-      {console.log(bands.length)}
       <Header searchField />
       {bandsFetchLoading ? (
         <p>Carregando</p>

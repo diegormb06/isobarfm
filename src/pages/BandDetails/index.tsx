@@ -12,13 +12,25 @@ const BandDetails = () => {
   const { bands } = useBandsContext();
   const { id } = useParams();
   const [activeBand, setActiveBand] = useState<Band | null>(null);
+  const { getAlbums } = useBandService();
+  const [albums, setAlbums] = useState([]);
 
   useEffect(() => {
     if (bands.length < 1) getBands();
     const active = bands.find((band: Band) => band.id === id);
-    console.log("bandas", bands, "banda ativa", active, id);
     setActiveBand(active);
   }, [bands, id]);
+
+  useEffect(() => {
+    getAlbums().then((albumsData) => {
+      if (albumsData) {
+        const activeBandAlbums = albumsData.filter((album: any) => {
+          return album.band === activeBand?.id;
+        });
+        setAlbums(activeBandAlbums);
+      }
+    });
+  }, [activeBand]);
 
   return (
     <div>
@@ -27,12 +39,19 @@ const BandDetails = () => {
       <BandIntro>
         <h2>{activeBand?.name}</h2>
         <BandStatus>
-          <p>{activeBand?.genre}</p>
+          <BandStatsText align="right">{activeBand?.genre}</BandStatsText>
           <Avatar source={activeBand?.image} size="large" />
-          <p>{activeBand?.numPlays} plays</p>
+          <BandStatsText align="left">
+            {activeBand?.numPlays} plays
+          </BandStatsText>
         </BandStatus>
       </BandIntro>
       <p>{activeBand?.biography}</p>
+      <GridOfAlbums>
+        {albums.map((album: any) => (
+          <img src={album?.image} alt="" />
+        ))}
+      </GridOfAlbums>
     </div>
   );
 };
@@ -53,15 +72,31 @@ const BandIntro = styled.div`
 
 const BandStatus = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   padding: 15px;
+`;
 
-  p {
-    flex: 1;
-    text-align: center;
-    text-transform: uppercase;
+const BandStatsText = styled.p<{ align: string }>`
+  flex: 1;
+  text-align: ${({ align = "left" }) => align};
+  text-transform: uppercase;
+  padding: 0 1rem;
+  font-size: 0.8rem;
+  color: #6c6c6c;
+  font-weight: 500;
+  position: relative;
+  top: 13px;
+`;
+
+const GridOfAlbums = styled.div`
+  max-width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  img {
+    max-width: 100%;
   }
 `;
 

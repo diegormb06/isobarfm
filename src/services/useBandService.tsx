@@ -26,7 +26,18 @@ const useBandsService = () => {
 
   const getBandsById = () => {};
 
-  const getAlbums = () => {};
+  const getAlbums = async () => {
+    setBandsFetchLoading(true);
+    try {
+      const albumsData = await api.get("/albums");
+      setBandsFetchLoading(false);
+      return albumsData.data;
+    } catch (e: any) {
+      console.log(e.message);
+      setBandsFetchLoading(false);
+      return;
+    }
+  };
 
   return {
     bandsFetchLoading,
