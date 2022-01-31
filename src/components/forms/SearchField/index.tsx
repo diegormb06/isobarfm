@@ -60,6 +60,7 @@ const InputIcon = styled.img`
   height: 18px;
   position: absolute;
   right: 10px;
+  cursor: pointer;
 `;
 
 const ClearButton = styled.button`
