@@ -12,7 +12,7 @@ const BandDetails = () => {
   const { getBands } = useBandService();
   const { bands } = useBandsContext();
   const { id } = useParams();
-  const [activeBand, setActiveBand] = useState<Band | null>(null);
+  const [activeBand, setActiveBand] = useState<Band | undefined>();
   const { getAlbums } = useBandService();
   const [albums, setAlbums] = useState([]);
   const [openReadMore, setOpenReadMore] = useState(false);

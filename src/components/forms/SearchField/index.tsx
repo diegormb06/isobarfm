@@ -7,9 +7,10 @@ import { Band } from "../../../isobar";
 const SearchField = () => {
   const { bands, setBands } = useBandsContext();
   const [searchTerm, setSearchTerm] = useState("");
-  const [initialBands, setInitialBands] = useState([]);
+  const [initialBands, setInitialBands] = useState<Band[]>([]);
 
   const handleInputChange = (e: any) => {
+    if (e.target.value.length === 0) setBands(initialBands);
     setSearchTerm(e.target.value);
   };
 

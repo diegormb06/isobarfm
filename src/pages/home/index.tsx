@@ -10,13 +10,13 @@ import noResultsImage from "../../assets/images/no_results.png";
 import LoadingDisk from "../../components/feedback/LoadingDisk";
 
 const Home = () => {
-  const { bands, searchStatus } = useBandsContext();
+  const { bands } = useBandsContext();
   const { getBands, bandsFetchLoading } = useBandService();
   const [orderedBands, setOrderedBands] = useState<Band[]>([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (bands.length < 1) getBands();
+    getBands();
   }, []);
 
   useEffect(() => {
@@ -39,6 +39,17 @@ const Home = () => {
     setOrderedBands(orderBands);
     setOpen(false);
   };
+
+  if (!bandsFetchLoading && bands.length === 0) {
+    return (
+      <div>
+        <Header searchField />
+
+        <NoresultsMessage>Nenhuma banda encontrada</NoresultsMessage>
+        <NoresultsImage src={noResultsImage} alt="no result image" />
+      </div>
+    );
+  }
 
   return (
     <div>

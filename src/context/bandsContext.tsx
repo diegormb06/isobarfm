@@ -1,7 +1,15 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { Band } from "../isobar";
 
-export const bandsContext = createContext<any>({});
+type BandsContextType = {
+  bands: Band[];
+  setBands: React.Dispatch<React.SetStateAction<Band[]>>;
+};
+
+export const bandsContext = createContext<BandsContextType>({
+  bands: [],
+  setBands(value: ((prevState: Band[]) => Band[]) | Band[]): void {},
+});
 
 export const BandsProvider = ({ children }: any) => {
   const [bands, setBands] = useState<Band[]>([]);
