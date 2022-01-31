@@ -42,11 +42,13 @@ const Home = () => {
 
   if (!bandsFetchLoading && bands.length === 0) {
     return (
-      <div>
+      <>
         <Header searchField />
-        <NoresultsMessage>Nenhuma banda encontrada</NoresultsMessage>
-        <NoresultsImage src={noResultsImage} alt="no result image" />
-      </div>
+        <NoresultsContainer>
+          <NoresultsMessage>Nenhuma banda encontrada</NoresultsMessage>
+          <NoresultsImage src={noResultsImage} alt="no result image" />
+        </NoresultsContainer>
+      </>
     );
   }
 
@@ -133,16 +135,22 @@ const OrderOptionsItem = styled.p`
   }
 `;
 
+const NoresultsContainer = styled.div`
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const NoresultsMessage = styled.p`
-  max-width: 50%;
-  max-height: 100%;
-  margin: 30px auto;
+  text-align: center;
   display: block;
 `;
 
 const NoresultsImage = styled.img`
   max-width: 50%;
-  max-height: 100%;
   margin: 30px auto;
   display: block;
 `;
