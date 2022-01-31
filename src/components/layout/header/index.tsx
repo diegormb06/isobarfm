@@ -37,6 +37,7 @@ const Header = ({ searchField }: HeaderProps) => {
 };
 
 const HeaderContainer = styled.header<HeaderProps>`
+  position: relative;
   background-color: #ff5b2a;
   min-height: 45px;
   display: flex;
