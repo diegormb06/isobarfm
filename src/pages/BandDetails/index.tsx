@@ -61,7 +61,7 @@ const BandDetails = () => {
       ) : (
         <GridOfAlbums>
           {albums.map((album: any) => (
-            <img src={album?.image} alt="" />
+            <img key={album.id} src={album?.image} alt="" />
           ))}
         </GridOfAlbums>
       )}
