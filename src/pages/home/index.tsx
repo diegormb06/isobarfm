@@ -1,13 +1,13 @@
+import { useEffect, useState } from "react";
+import styled from "styled-components/macro";
 import Header from "../../components/layout/header";
 import BandListItem from "../../components/layout/BandListItem";
-import styled from "styled-components/macro";
+import LoadingDisk from "../../components/feedback/LoadingDisk";
 import useBandService from "../../services/useBandService";
-import { useEffect, useState } from "react";
-import { Band } from "../../isobar";
 import { useBandsContext } from "../../context/bandsContext";
 import filterImage from "../../assets/images/order_by.png";
 import noResultsImage from "../../assets/images/no_results.png";
-import LoadingDisk from "../../components/feedback/LoadingDisk";
+import { Band } from "../../isobar";
 
 const Home = () => {
   const { bands } = useBandsContext();
@@ -44,7 +44,6 @@ const Home = () => {
     return (
       <div>
         <Header searchField />
-
         <NoresultsMessage>Nenhuma banda encontrada</NoresultsMessage>
         <NoresultsImage src={noResultsImage} alt="no result image" />
       </div>

@@ -2,6 +2,7 @@ import Avatar from "../../datadisplay/avatar";
 import styled from "styled-components/macro";
 import { Band } from "../../../isobar";
 import { useNavigate } from "react-router-dom";
+import { formatNumber } from "../../../helpers";
 
 interface BandListItemProps {
   band: Band;
@@ -15,7 +16,7 @@ const BandListItem = ({ band }: BandListItemProps) => {
       <Avatar source={band.image} size="small" />
       <BandInfo>
         <BandName>{band.name}</BandName>
-        <BandPlays>{band.numPlays} plays</BandPlays>
+        <BandPlays>{formatNumber(band.numPlays)} plays</BandPlays>
       </BandInfo>
     </BandListItemWrapper>
   );

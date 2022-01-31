@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import useBandService from "../../services/useBandService";
 import Avatar from "../../components/datadisplay/avatar";
 import LoadingDisk from "../../components/feedback/LoadingDisk";
+import { formatNumber } from "../../helpers";
 
 const BandDetails = () => {
   const { getBands } = useBandService();
@@ -44,7 +45,7 @@ const BandDetails = () => {
           <BandStatsText align="right">{activeBand?.genre}</BandStatsText>
           <Avatar source={activeBand?.image} size="large" />
           <BandStatsText align="left">
-            {activeBand?.numPlays} plays
+            {formatNumber(activeBand?.numPlays)} plays
           </BandStatsText>
         </BandStatus>
       </BandIntro>
