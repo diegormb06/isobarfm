@@ -11,7 +11,7 @@ import LoadingDisk from "../../components/feedback/LoadingDisk";
 
 const Home = () => {
   const { bands, searchStatus } = useBandsContext();
-  const { getBands } = useBandService();
+  const { getBands, bandsFetchLoading } = useBandService();
   const [orderedBands, setOrderedBands] = useState<Band[]>([]);
   const [open, setOpen] = useState(false);
 
@@ -40,31 +40,6 @@ const Home = () => {
     setOpen(false);
   };
 
-  if (searchStatus) {
-    return (
-      <div>
-        <Header searchField />
-        <ResultsCount>
-          <p>{orderedBands.length} results</p>
-          <OrderControlContainer>
-            <OrderButton src={filterImage} onClick={() => setOpen(!open)} />
-            {open && (
-              <OrderOptionsList>
-                <OrderOptionsItem onClick={() => sortBandsByProp("name")}>
-                  Ordem Alfabética
-                </OrderOptionsItem>
-                <OrderOptionsItem onClick={() => sortBandsByProp("numPlays")}>
-                  Polularidade
-                </OrderOptionsItem>
-              </OrderOptionsList>
-            )}
-          </OrderControlContainer>
-        </ResultsCount>
-        <NoresultsImage src={noResultsImage} alt="noresults image" />
-      </div>
-    );
-  }
-
   return (
     <div>
       <Header searchField />
@@ -84,7 +59,7 @@ const Home = () => {
           )}
         </OrderControlContainer>
       </ResultsCount>
-      {orderedBands.length == 0 ? (
+      {bandsFetchLoading ? (
         <LoadingDisk />
       ) : (
         <BandListContainer>
