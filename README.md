@@ -1,7 +1,5 @@
 ![Expenses Manager](./isobarfm.jpg)
 
-Projeto desenvolvido como parte do teste para Lead Frontend na Dentsu World Services
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
